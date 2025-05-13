@@ -2,13 +2,18 @@
 version: "3"
 services:
  devopsdb:
-   container_name: devopsdb
    image: anilsrimanthula/project:javadb
    ports:
      - "3306:3306"
+   deploy:
+     replicas: 2
 
  application:
    image: anilsrimanthula/project:javaapp
-   container_name: containerapp
    ports:
      - "1234:8080"
+   deploy:
+     replicas: 3
+   depends_on:
+     - "devopsdb"
+     
